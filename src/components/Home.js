@@ -10,29 +10,19 @@ class Home extends Component {
         wantRead:[],
         read:[],
         viewBooks:(books)=>{
-            const currentRead= books.filter(book => book.shelf == "currentlyReading")
-            const wantRead= books.filter(book => book.shelf == "wantToRead")
-            const read= books.filter(book => book.shelf == "read")
+            const currentRead= books.filter(book => book.shelf === "currentlyReading")
+            const wantRead= books.filter(book => book.shelf === "wantToRead")
+            const read= books.filter(book => book.shelf === "read")
             this.setState(()=>({
                 books:books,
                 currentRead:currentRead,
                 wantRead:wantRead,
                 read:read
             }))},
-        moveBook:(bookId,shelf,newState)=>{
-            const newBooks = this.state.books.map(book =>{
-                const found = newState[shelf].find(
-                bookId =>bookId == book.id
-                )
-                if(found){
-                    book.shelf=shelf
-                    console.log(found)
-                }
-                return book 
-            })
-            this.state.viewBooks(newBooks)
+        moveBook:()=>{
+                this.componentDidMount()           
+            }
         }
-    }
 
     async componentDidMount(){
         try{
