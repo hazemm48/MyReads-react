@@ -6,8 +6,8 @@ class Menu extends Component{
       try {
          const bookId =e.target.closest('li').getAttribute('value')
          const shelf=e.target.value
-         const newState = await BooksAPI.update(bookId,shelf)  
-         this.props.moveBook(bookId,shelf,newState) 
+         await BooksAPI.update(bookId,shelf)  
+         this.props.moveBook() 
       }catch(error){
           console.log(error)
          }       
@@ -16,7 +16,7 @@ class Menu extends Component{
    render() {
    return(
     <div className="book-shelf-changer">
-    <select onChange={this.handleChange} value={this.props.shelf}>
+    <select onChange={this.handleChange} defaultValue={this.props.shelf}>
        <option value="move" disabled >Move to...</option>
        <option value="currentlyReading">Currently Reading</option>
        <option value="wantToRead">Want to Read</option>
