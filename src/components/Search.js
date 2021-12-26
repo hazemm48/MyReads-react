@@ -22,16 +22,19 @@ handleChange = async (e)=> {
         const string = e.target.value
         if (string.trim()){
             const search = await BooksAPI.search(string)
-            this.setState(()=>({
+            if(search!==''){
+                this.setState(()=>({
                 result:search
-            }))    
+            }))  
+            }else{
+                this.setState({result:[]})}      
         }else{
             this.setState({result:[]})
         }
-        }catch (error){
-            console.log(error);
-        }
+    }catch (error){
+        console.log(error);
     }
+}
     
 render(){
     return(
@@ -44,11 +47,11 @@ render(){
             </div>
             <div className="search-books-results">
               <ol className="books-grid" >
-                  {this.state.result.map(book =>{const foundshelf = this.state.books.find(search => search.id === book.id); if (foundshelf){
+                  {this.state.result.length >0 && this.state.result.map(book =>{const foundshelf = this.state.books.find(search => search.id === book.id); if (foundshelf){
                    book.shelf = foundshelf.shelf;
                   }else{
                    book.shelf = 'none'
-                  };  return (<Grid book={book} moveBook={this.props.moveBook} key={this.state.books.id}/>);})}
+                  };  return (<Grid book={book} moveBook={this.props.moveBook} key={book.id}/>);})}
               </ol>
             </div>
           </div>
